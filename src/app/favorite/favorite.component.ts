@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Input, Output, EventEmitter} from '@angular/core';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+
 
 @Component({
   selector: 'app-favorite',
@@ -9,8 +10,9 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 export class FavoriteComponent implements OnInit {
   faStar = faStar;
   size = 'lg';
-  isOn = 0;
-  
+  @Input('is-selected') isOn :boolean;
+  @Output() change = new EventEmitter();
+
   constructor() { }
 
   ngOnInit() {
@@ -18,12 +20,7 @@ export class FavoriteComponent implements OnInit {
 
   changeState()
   {
-    if (this.isOn)
-    {
-      this.isOn = 0;
-    } else
-    {
-      this.isOn = 1;
-    }
+    this.isOn = !this.isOn;
+    this.change.emit();
   }
 }
